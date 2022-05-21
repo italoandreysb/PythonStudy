@@ -43,7 +43,7 @@ class Hotel(Resource):
         argumentos.add_argument('diaria')
         argumentos.add_argument('cidade')
 
-        dados = argumentos.parse_args()
+        dados = argumentos.parse_args() #construtor
 
         novo_hotel = {
             'hotel_id': hotel_id,
