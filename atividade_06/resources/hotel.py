@@ -66,12 +66,20 @@ class Hotel(Resource):
 
         dados = Hotel.argumentos.parse_args()             #o parse_args chama todo o construtor 
 
-        novo_hotel = { 'hotel_id': hotel_id, **dados}
+        #novo_hotel = { 'hotel_id': hotel_id, **dados}
+        novo_hotel = {
+            'hotel_id': hotel_id,
+            'nome': dados['nome'],
+            'estrelas': dados['estrelas'],
+            'diaria': dados['diaria'],
+            'cidade': dados['cidade']
+        }
 
         hotel = Hotel.find_hotel(hotel_id)
         if hotel:
             hotel.update(novo_hotel)                      #a função ".update()" já trabalha com os updates
             return novo_hotel, 200
+
         hoteis.append(novo_hotel)
         return novo_hotel, 201
 
@@ -82,5 +90,5 @@ class Hotel(Resource):
     """
     - Sempre que "precisarmos" copiar e colar um códio para outro campo, pensar em criar uma classe
     
-    
+
     """
