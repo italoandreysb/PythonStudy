@@ -1,12 +1,12 @@
 class EmailDeBoasVindas:
     def __init__(self):
-        self.pessoas = ['Cristian','Robert','Rossana','Ana']
+        self.pessoas = ['Cristian','Robert','Rossana','Ana','pedro','joao']
     
     def Iniciar(self):
         emails_apresentacao = self.MontarCredencial(self.pessoas)
         for email in emails_apresentacao:
             print(email)
-				print(emails_apresentacao[5])
+		  #  print(emails_apresentacao, [5])
 
 
     def MontarCredencial(self, pessoas):
