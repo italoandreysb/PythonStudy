@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from models.hotel import HotelModel
 
 hoteis = [
         {
@@ -36,7 +37,8 @@ class Hotel(Resource):
     argumentos.add_argument('diaria')
     argumentos.add_argument('cidade')
 
-    def find_hotel(hotel_id):  # Método para validação de função (verifica se há hotel existente)
+    # Método para validação de função (verifica se há hotel existente)
+    def find_hotel(hotel_id):  
         for hotel in hoteis:
             if hotel['hotel_id'] == hotel_id:
                 return hotel
@@ -50,35 +52,19 @@ class Hotel(Resource):
 
     def post(self, hotel_id):
         dados = Hotel.argumentos.parse_args()  # construtor
-
-        novo_hotel = {
-            'hotel_id': hotel_id,
-            'nome': dados['nome'],
-            'estrelas': dados['estrelas'],
-            'diaria': dados['diaria'],
-            'cidade': dados['cidade']
-        }
+        hotel_objeto = HotelModel(hotel_id, **dados)  # Varável "hotel_objeto" recebe todos argumentos(**dados) da classe "hotel" baseado no "hotel_id"
+        novo_hotel = hotel_objeto.json()  # variável "novo_hotel" recebe a conversão .json do "hotel_objeto" 
         hoteis.append(novo_hotel)  # função .append() usada para criar um novo hotel
-        return novo_hotel, 200
+        return novo_hotel, 201
 
     def put(self, hotel_id):
-
         dados = Hotel.argumentos.parse_args()  # o parse_args chama todo o construtor 
-
-        #novo_hotel = { 'hotel_id': hotel_id, **dados}
-        novo_hotel = {
-            'hotel_id': hotel_id,
-            'nome': dados['nome'],
-            'estrelas': dados['estrelas'],
-            'diaria': dados['diaria'],
-            'cidade': dados['cidade']
-        }
-
+        hotel_objeto = HotelModel(hotel_id, **dados)
+        novo_hotel = hotel_objeto.json()
         hotel = Hotel.find_hotel(hotel_id)
         if hotel:
             hotel.update(novo_hotel)  # a função ".update()" já trabalha com os updates
             return novo_hotel, 200
-
         hoteis.append(novo_hotel)
         return novo_hotel, 201
 

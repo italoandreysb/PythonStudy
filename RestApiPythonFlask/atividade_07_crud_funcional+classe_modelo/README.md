@@ -1,9 +1,7 @@
 ## Crud funcional + classe modelo
 
-- Método Get OK
+- Método Get Post, Put e Delete OK e usando nova estrutura de classe modelo de hoteis e a conversão json
 
-- Método Post OK
-
-- Método Put (update) com erro, não sei o motivo ainda
-
-- Método Delete ok
+- Método de classe adicionado
+- Método de conversão para Json adicionado
+- pacote models criado e inserido os métodos acima
