@@ -1,4 +1,4 @@
-## Crud funcional
+## Crud funcional + classe modelo
 
 - Método Get OK
 
