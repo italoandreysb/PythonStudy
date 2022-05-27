@@ -36,8 +36,7 @@ class Hotel(Resource):
     argumentos.add_argument('diaria')
     argumentos.add_argument('cidade')
 
-    #Método para validação de função (verifica se há hotel existente)
-    def find_hotel(hotel_id):
+    def find_hotel(hotel_id):  # Método para validação de função (verifica se há hotel existente)
         for hotel in hoteis:
             if hotel['hotel_id'] == hotel_id:
                 return hotel
@@ -50,7 +49,7 @@ class Hotel(Resource):
         return {'message': 'hotel not found'}, 404 
 
     def post(self, hotel_id):
-        dados = Hotel.argumentos.parse_args()             #construtor
+        dados = Hotel.argumentos.parse_args()  # construtor
 
         novo_hotel = {
             'hotel_id': hotel_id,
@@ -59,12 +58,12 @@ class Hotel(Resource):
             'diaria': dados['diaria'],
             'cidade': dados['cidade']
         }
-        hoteis.append(novo_hotel)                           # função .append() usada para criar um novo hotel
+        hoteis.append(novo_hotel)  # função .append() usada para criar um novo hotel
         return novo_hotel, 200
 
     def put(self, hotel_id):
 
-        dados = Hotel.argumentos.parse_args()             #o parse_args chama todo o construtor 
+        dados = Hotel.argumentos.parse_args()  # o parse_args chama todo o construtor 
 
         #novo_hotel = { 'hotel_id': hotel_id, **dados}
         novo_hotel = {
@@ -77,14 +76,16 @@ class Hotel(Resource):
 
         hotel = Hotel.find_hotel(hotel_id)
         if hotel:
-            hotel.update(novo_hotel)                      #a função ".update()" já trabalha com os updates
+            hotel.update(novo_hotel)  # a função ".update()" já trabalha com os updates
             return novo_hotel, 200
 
         hoteis.append(novo_hotel)
         return novo_hotel, 201
 
     def delete(self, hotel_id):
-        pass
+        global hoteis  # Tornando a variável "hoteis" global
+        hoteis = [hotel for hotel in hoteis if hotel['hotel_id'] != hotel_id]
+        return {'message': 'Hotel deleted.'}
 
 
     """
