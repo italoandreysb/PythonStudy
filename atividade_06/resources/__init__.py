@@ -1,1 +1,0 @@
-#Este arquivo é para dizer que o "Resource" é um módulo ou pacote
